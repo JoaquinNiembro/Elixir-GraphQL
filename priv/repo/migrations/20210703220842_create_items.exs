@@ -1,12 +1,12 @@
-defmodule PlateSlate.Repo.Migrations.CreateItems do
+defmodule PlateSlate.Repo.Migrations.CreateCategories do
   use Ecto.Migration
 
   def change do
-    create table(:items) do
-      add :added_on, :date
+    create table(:categories) do
       add :description, :string
-      add :name, :string
-      add :price, :decimal
+      add :name, :string, null: false
+
+      timestamps()
     end
   end
 end
