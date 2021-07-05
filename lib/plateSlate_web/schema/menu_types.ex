@@ -3,6 +3,7 @@ defmodule PlateSlateWeb.Schema.MenuTypes do
   alias PlateSlateWeb.Resolvers
 
   object :category do
+    interfaces([:search_result])
     field :name, :string
     field :description, :string
 
@@ -30,6 +31,7 @@ defmodule PlateSlateWeb.Schema.MenuTypes do
   end
 
   object :menu_item do
+    interfaces([:search_result])
     @desc "item's unique identifier"
     field :id, :id
     @desc "item's name"
@@ -53,6 +55,21 @@ defmodule PlateSlateWeb.Schema.MenuTypes do
       arg(:order, type: :sort_order, default_value: :asc)
       resolve(&Resolvers.Menu.menu_items/3)
     end
+
+    field :search, list_of(:search_result) do
+      arg(:matching, non_null(:string))
+      resolve(&Resolvers.Menu.search/3)
+    end
+  end
+
+  interface :search_result do
+    field :name, :string
+
+    resolve_type(fn
+      %PlateSlate.Menu.Item{}, _ -> :menu_item
+      %PlateSlate.Menu.Category{}, _ -> :category
+      _, _ -> nil
+    end)
   end
 
   union :search_result do
