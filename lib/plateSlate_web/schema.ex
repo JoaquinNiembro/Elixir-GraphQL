@@ -1,7 +1,7 @@
 defmodule PlateSlateWeb.Schema do
   use Absinthe.Schema
   alias PlateSlateWeb.Resolvers
-  import_types(__MODULE__.MenuTypes)
+  import_types(__MODULE__.{MenuTypes, CarTypes})
 
   scalar :date do
     parse(fn input ->
@@ -16,6 +16,7 @@ defmodule PlateSlateWeb.Schema do
 
   query do
     import_fields(:menu_queries)
+    import_fields(:car_queries)
 
     field :search, list_of(:search_result) do
       arg(:matching, non_null(:string))

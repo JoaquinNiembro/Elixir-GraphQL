@@ -1,5 +1,5 @@
 defmodule PlateSlate.Seeds do
-  alias PlateSlate.{Menu.Item, Menu.Category, Repo}
+  alias PlateSlate.{Menu.Item, Menu.Category, Repo, Cars.Car}
 
   def run_items do
     Repo.insert!(%Item{
@@ -41,6 +41,29 @@ defmodule PlateSlate.Seeds do
     Repo.insert!(%Category{
       description: "This category includes nice videogames",
       name: "Videogames"
+    })
+  end
+
+  def run_cars do
+    Repo.insert!(%Car{
+      company: "Masseratti",
+      name: "Maseratti",
+      year: "2019",
+      color: "red"
+    })
+
+    Repo.insert!(%Car{
+      company: "Nissan",
+      name: "Tsuru",
+      year: "2011",
+      color: "white"
+    })
+
+    Repo.insert!(%Car{
+      company: "Chevrolet",
+      name: "Avalanche",
+      year: "2022",
+      color: "black"
     })
   end
 end
