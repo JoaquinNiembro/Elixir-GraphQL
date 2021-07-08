@@ -17,7 +17,7 @@ defmodule PlateSlate.Menu.Item do
   def changeset(%Item{} = item, attrs) do
     item
     |> cast(attrs, [:name, :description, :price, :added_on])
-    |> validate_required([:name, :price])
+    |> validate_required([:name])
 
     # |> foreign+key_constraint(:category)
   end

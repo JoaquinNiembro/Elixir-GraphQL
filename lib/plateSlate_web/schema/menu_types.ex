@@ -40,6 +40,19 @@ defmodule PlateSlateWeb.Schema.MenuTypes do
     field :description, :string
     @desc "item's date of creation"
     field :added_on, :date
+    @desc "item's price"
+    field :price, :decimal
+  end
+
+  object :menu_item_result do
+    field :menu_item, :menu_item
+    field :errors, list_of(:input_error)
+  end
+
+  @desc "An error encountered trying to persist input"
+  object :input_error do
+    field :key, non_null(:string)
+    field :message, non_null(:string)
   end
 
   enum :sort_order do
@@ -64,16 +77,6 @@ defmodule PlateSlateWeb.Schema.MenuTypes do
 
   interface :search_result do
     field :name, :string
-
-    resolve_type(fn
-      %PlateSlate.Menu.Item{}, _ -> :menu_item
-      %PlateSlate.Menu.Category{}, _ -> :category
-      _, _ -> nil
-    end)
-  end
-
-  union :search_result do
-    types([:menu_item, :category])
 
     resolve_type(fn
       %PlateSlate.Menu.Item{}, _ -> :menu_item

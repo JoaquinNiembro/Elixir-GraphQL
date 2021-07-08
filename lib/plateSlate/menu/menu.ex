@@ -1,6 +1,12 @@
 defmodule PlateSlate.Menu.Menu do
-  alias PlateSlate.{Menu, Repo}
+  alias PlateSlate.{Menu, Repo, Menu.Item}
   import Ecto.Query
+
+  def create_item(attrs \\ %{}) do
+    %Item{}
+    |> Item.changeset(attrs)
+    |> Repo.insert()
+  end
 
   def list_items(args) do
     args
@@ -17,6 +23,10 @@ defmodule PlateSlate.Menu.Menu do
       end
     )
     |> Repo.all()
+  end
+
+  def list_items(_) do
+    Repo.all(Menu.Item)
   end
 
   defp filter_with(query, filter) do
@@ -62,10 +72,6 @@ defmodule PlateSlate.Menu.Menu do
   # )
   # |> Repo.all()
   # end
-
-  def list_items(_) do
-    Repo.all(Menu.Item)
-  end
 
   @search [Menu.Item, Menu.Category]
   def search(term) do
