@@ -3,6 +3,13 @@ defmodule PlateSlate.Cars do
   alias PlateSlate.Repo
   alias PlateSlate.Cars.Car
 
+  def create_car(attrs \\ %{}) do
+    IO.inspect attrs
+    %Car{}
+    |> Car.changeset(attrs)
+    |> Repo.insert()
+  end
+
   def list_cars(args) do
     args
     |> Enum.reduce(
@@ -19,6 +26,7 @@ defmodule PlateSlate.Cars do
     )
     |> Repo.all()
   end
+
 
   defp filter_cars_by(query, filter) do
     Enum.reduce(filter, query, fn

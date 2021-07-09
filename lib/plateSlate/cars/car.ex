@@ -15,6 +15,6 @@ defmodule PlateSlate.Cars.Car do
   def changeset(%Car{} = car, attrs) do
     car
     |> cast(attrs, [:name, :company, :year, :color])
-    |> validate_required([:name, :company, :year, :color])
+    |> validate_required([:name, :company, :color])
   end
 end

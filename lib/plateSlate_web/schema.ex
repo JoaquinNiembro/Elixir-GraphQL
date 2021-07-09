@@ -43,10 +43,21 @@ defmodule PlateSlateWeb.Schema do
     field :category_id, non_null(:id)
   end
 
+  input_object :car_input do
+    field :name, non_null(:string)
+    field :company, non_null(:string)
+    field :year, :string
+  end
+
   mutation do
     field :create_menu_item, :menu_item do
       arg(:input, non_null(:menu_item_input))
       resolve(&Resolvers.Menu.create_item/3)
+    end
+
+    field :create_car, :car do
+      arg(:input, non_null(:car_input))
+      resolve(&Resolvers.Cars.create_car/3)
     end
   end
 end
